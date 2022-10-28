@@ -10,6 +10,6 @@ namespace BulkyBookWeb.Data
 
         }
 
-        public DbSet<CategoryModel> Categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }

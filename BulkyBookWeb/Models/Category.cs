@@ -2,7 +2,7 @@
 
 namespace BulkyBookWeb.Models
 {
-    public class CategoryModel
+    public class Category
     {
         [Key]
         public int Id { get; set; }
