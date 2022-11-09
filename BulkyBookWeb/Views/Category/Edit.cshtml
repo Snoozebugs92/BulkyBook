@@ -2,10 +2,10 @@
 @model Category
 
 
-<form method="post">
+<form method="post" asp-action="Edit">
     <div class="border p-3 mt4">
         <div class="row pb-2">
-            <h2 class="text-primary">Create Category</h2>
+            <h2 class="text-primary">Edit Category</h2>
             <hr />
         </div>
         @*
@@ -22,7 +22,7 @@
             <span asp-validation-for="DisplayOrder" class="text-danger"></span>
 
         </div>
-        <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+        <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
         <a asp-controllers="Category" asp-action="Index" class="btn btn-secondary" style="width:150px">Back To List</a>
     </div>
 </form>
