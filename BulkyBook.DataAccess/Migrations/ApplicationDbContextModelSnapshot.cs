@@ -2,6 +2,8 @@
 using BulkyBook.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
@@ -19,7 +21,7 @@ namespace BulkyBook.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BulkyBook.Web.Models.Category", b =>
+            modelBuilder.Entity("BulkyBook.Models.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,7 +34,8 @@ namespace BulkyBook.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
