@@ -2,8 +2,9 @@
 using BulkyBook.Models.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BulkyBook.Web.Controllers
+namespace BulkyBook.Web.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -78,7 +79,7 @@ namespace BulkyBook.Web.Controllers
             {
                 return NotFound();
             }
-            Category categoryFromDb = _unitOfWork.Category.Get(u =>u.Id == id);
+            Category categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -90,7 +91,7 @@ namespace BulkyBook.Web.Controllers
         public IActionResult DeletePOST(int? id)
         {
             Category obj = _unitOfWork.Category.Get(u => u.Id == id);
-            if(obj == null)
+            if (obj == null)
             {
                 return NotFound();
             }
