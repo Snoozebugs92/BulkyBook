@@ -29,8 +29,9 @@ namespace BulkyBook.Web.Areas.Admin.Controllers
             return View(objProductList);
         }
 
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
+
             ProductViewModel productViewModel = new()
             {
                 CategoryList = _unitOfWork.Category
@@ -43,11 +44,21 @@ namespace BulkyBook.Web.Areas.Admin.Controllers
                     }),
                 Product = new Product()
             };
-            return View(productViewModel);
+            if (id == null || id == 0)
+            {
+                //Create Product
+                return View(productViewModel);
+            }
+            else
+            {
+                //Update Product
+                productViewModel.Product = _unitOfWork.Product.Get(u => u.Id == id);
+                return View(productViewModel);
+            }
         }
 
         [HttpPost]
-        public IActionResult Create(ProductViewModel productViewModel)
+        public IActionResult Upsert(ProductViewModel productViewModel, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
@@ -68,33 +79,6 @@ namespace BulkyBook.Web.Areas.Admin.Controllers
                 });
                 return View(productViewModel);
             }
-        }
-
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            Product productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
-            if (productFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(productFromDb);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(Product obj)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Product.Update(obj);
-                _unitOfWork.Save();
-                TempData["success"] = "Product updated successfully.";
-                return RedirectToAction("Index");
-            }
-            return View();
         }
 
         public IActionResult Delete(int? id)
